@@ -5,6 +5,21 @@ const { users } = require("./auth_users.js");
 const public_users = express.Router();
 const axios = require('axios');
 
+public_users.post("/register", (req, res) => {
+    const { username, password } = req.body;
+    
+    if (!username || !password) {
+        return res.status(400).json({ message: "Username and password are required." });
+    }
+
+    const userExists = users.find(user => user.username === username);
+    if (userExists) {
+        return res.status(400).json({ message: "User already exists!" });
+    }
+    
+    users.push({ "username": username, "password": password });
+    return res.status(200).json({ message: "User successfully registered. You can now login." });
+});
 // Helper function to simulate/call your own API
 async function fetchFromAPI(endpoint) {
     try {

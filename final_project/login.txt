@@ -1,2 +1,2 @@
-theia@theia-charlesa7can:/home/localhost:5000/customer/login -H "Content-Type: application/json" -d '{"username":"testuser","password":"password123"}' -c cookie.txt
-{"message":"User successfully logged in"}
+theia@theia-charlesa7canhttp://localhost:5000/customer/login -H "Content-Type: application/json" -d '{"username":"testuser","password":"password123"}'
+{"message":"Login successful!"}
