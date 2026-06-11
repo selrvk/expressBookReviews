@@ -1,3 +1,8 @@
+const express = require('express');
+let books = require("./booksdb.js");
+let isValid = require("./auth_users.js").isValid;
+const { users } = require("./auth_users.js");
+const public_users = express.Router();
 const axios = require('axios');
 
 // Helper function to simulate/call your own API
@@ -52,3 +57,5 @@ public_users.get('/title/:title', async function (req, res) {
         return res.status(404).json({ message: "Title not found" });
     }
 });
+
+module.exports.general = public_users;
