@@ -13,7 +13,11 @@ const isValid = (username) => {
 
 // Helper: Check if username and password match
 const authenticatedUser = (username, password) => {
-    let validUsers = users.filter((user) => user.username === username && user.password === password);
+    console.log("Current Users Array:", users); 
+    
+    let validUsers = users.filter((user) => {
+        return (user.username === username && user.password === password);
+    });
     return validUsers.length > 0;
 };
 

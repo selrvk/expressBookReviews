@@ -1,20 +1,25 @@
 const express = require('express');
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
-let users = require("./auth_users.js").users;
+const { users } = require("./auth_users.js");
 const public_users = express.Router();
 
 
 // Register a new user
 public_users.post("/register", (req, res) => {
     const { username, password } = req.body;
+    
+    // Check if user already exists
+    const userExists = users.find(user => user.username === username);
+    
+    if (userExists) {
+        return res.status(400).json({ message: "User already exists!" });
+    }
+    
     if (username && password) {
-        if (!isValid(username)) {
-            users.push({ "username": username, "password": password });
-            return res.status(201).json({ message: "User successfully registered. You can now login." });
-        } else {
-            return res.status(400).json({ message: "User already exists!" });
-        }
+        users.push({ "username": username, "password": password });
+        console.log("User registered! Total users:", users); // Debugging
+        return res.status(200).json({ message: "User successfully registered. You can now login." });
     }
     return res.status(400).json({ message: "Username and password are required." });
 });
